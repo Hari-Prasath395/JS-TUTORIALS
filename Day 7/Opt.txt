@@ -1,0 +1,47 @@
+Limitations of Optional Chaining:
+Read Operations:
+
+Optional chaining is primarily used for safely reading properties. 
+It checks whether each reference in the chain exists and prevents runtime errors 
+due to null or undefined values.
+Example (safe read):
+javascript
+Copy code
+console.log(user_details.account?.holder?.profile?.birthDate);
+// Safely reads 'birthDate' if all properties exist, otherwise returns undefined.
+Delete Operations:
+
+Optional chaining can also be used with the delete operator to safely delete a property, 
+avoiding errors when part of the chain is undefined.
+Example (safe delete):
+javascript
+Copy code
+delete user_details.account?.holder?.profile?.birthDate;
+// Deletes 'birthDate' if it exists, without throwing an error if any part is undefined.
+Assignment (New Key Creation):
+
+Optional chaining does NOT work for assignment of new properties or values. If any part of the chain evaluates to undefined, the assignment will fail and the value will not be set.
+
+Attempting to assign a value using optional chaining will throw an error because optional chaining only works for reading properties, not for creating new properties.
+
+Example (assignment attempt):
+
+javascript
+Copy code
+user_details.account?.holder?.profile?.newKey = "New Value"; 
+// This will NOT create 'newKey' in 'profile' because optional chaining doesn't support assignment.
+This fails because optional chaining doesn’t allow creation of new properties. If holder or profile is undefined, it won’t perform the assignment and the new key won’t be created.
+
+Workaround for Assigning New Keys:
+To assign new properties, you need to ensure that the objects in the chain exist:
+
+javascript
+Copy code
+if (user_details.account && user_details.account.holder && user_details.account.holder.profile) {
+  user_details.account.holder.profile.newKey = "New Value";
+}
+// This ensures the 'profile' object exists before assigning 'newKey'.
+Summary:
+Safe for reading: Optional chaining lets you access deeply nested properties without checking for null or undefined at each step.
+Safe for deleting: You can use optional chaining with delete to safely remove properties.
+Not for assignment: Optional chaining cannot be used to assign or create new keys. You must ensure that the objects in the chain exist for assignment to work.

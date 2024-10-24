@@ -53,5 +53,45 @@ console.log(b);
 
 /*
 let does not allow redeclaring a variable in the same scope, so trying to 
-redeclare b will cause an error.
+redeclare b will cause an "Identifier 'b' has already been declared
+
+const declares a constant that cannot be reassigned or redeclared, so attempting 
+to do so will result in an error.
+
 */
+
+//************************************************************************************** */
+// 3. Value Assignement
+
+var c = 25;
+console.log(c);
+c = 45;
+console.log(c);
+// Var allows reassignment and redeclaration.
+
+let d = 95;
+console.log(d);
+d = 67;
+console.log(d);
+// Let allows reassignment but does not allow redeclaration in the same scope.
+
+const x = 56;
+console.log(x);
+x = 34;
+console.log(x); // Output : Assignment to a constant variable error.
+
+// Const does not allow reassignment or redeclaration.
+
+
+const student = {'name':"Guru","Age":13};
+console.table(student);
+
+student.name = "Raja";
+console.table(student);
+
+/*while const prevents reassignment of the entire object, it allows modifying 
+the properties of the object, so student.name can be updated.
+*/
+
+
+

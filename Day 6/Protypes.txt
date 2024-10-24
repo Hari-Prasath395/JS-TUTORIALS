@@ -1,0 +1,46 @@
+In this code, you are setting obj1 as the prototype of obj2 using the __proto__ property, which means obj2 can now access properties and methods from obj1 if they are not present in obj2.
+
+Let's break down the behavior:
+
+obj1 has properties name, city, and a method info().
+obj2 has only a name property, but it now inherits from obj1 via the prototype chain.
+Expected Output:
+If you try to access obj2.name, it will return "Kumar" because obj2 has its own name property.
+If you try to access obj2.city, it will return "Salem" because city is not defined in obj2, but it exists in the prototype (obj1).
+If you call obj2.info(), the method from obj1 will be used, but it will refer to obj2's name property. So, the result will be:
+javascript
+Copy code
+obj2.info(); // Output: "Kumar from Salem"
+Explanation:
+When you set obj2.__proto__ = obj1, JavaScript creates a prototype chain where obj2 inherits from obj1. Since obj2 doesn't have a city property or the info method, it looks up the prototype chain to find these in obj1.
+However, info() uses this.name and this.city, so it will look for name and city in obj2 first. Since obj2 has a name but not a city, it will use name from obj2 and city from obj1.
+Thus, the output of obj2.info() is "Kumar from Salem".
+
+
+
+//8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888//
+
+### Explanation:
+
+In this code, you are adding a method `doubleLength()` to the `Array.prototype`. This means that all arrays in JavaScript will now have access to this method, allowing you to call `doubleLength()` on any array instance.
+
+#### Breakdown:
+- `Array.prototype` is the object that all array instances inherit from in JavaScript.
+- By adding a method `doubleLength()` to `Array.prototype`, you are extending the functionality of arrays. Any array can now call this method, and it will return double the length of the array.
+
+### Example:
+
+```javascript
+let arr = [1, 2, 3, 4];
+console.log(arr.doubleLength()); // Output: 8
+```
+
+### How It Works:
+- `this.length` refers to the length of the array the method is being called on.
+- `this` refers to the array instance.
+- The method returns the length of the array multiplied by 2.
+
+In the example above, `arr.length` is 4, so `arr.doubleLength()` will return `4 * 2 = 8`.
+
+### Notes:
+- Be cautious when adding methods to native prototypes like `Array.prototype`, as it affects all arrays globally. This can lead to conflicts or unexpected behavior, especially if other code (e.g., libraries) relies on native array behavior.
